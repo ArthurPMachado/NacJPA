@@ -1,5 +1,8 @@
 package br.com.contabancaria.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,7 +19,7 @@ import javax.persistence.Table;
 @SequenceGenerator(name="agencia", sequenceName="SQ_TB_AGENCIA", allocationSize=1)
 public class Agencia {
 	@Id
-	@Column(name="cd_id")
+	@Column(name="cd_agencia")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="agencia")
 	private int codigo;
 	
@@ -25,24 +29,26 @@ public class Agencia {
 	@Column(name="ds_endereco", nullable=false, length=100)
 	private String endereco;
 	
-	@Column(name="nr_telefone", nullable=false)
+	@Column(name="nr_telefone", nullable=false)	
 	private int telefone;
 	
 	@ManyToOne
 	@JoinColumn(name="cd_banco")
 	private Banco banco;
-
+	
+	@OneToMany(mappedBy="agencia")
+	private List<ContaBancaria> contas = new ArrayList<ContaBancaria>();
+	
 	public Agencia() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Agencia(String nome, String endereco, int telefone, Banco banco) {
+	public Agencia(String nome, String endereco, int telefone) {
 		super();
 		this.nome = nome;
 		this.endereco = endereco;
 		this.telefone = telefone;
-		this.banco = banco;
 	}
 
 	public int getCodigo() {

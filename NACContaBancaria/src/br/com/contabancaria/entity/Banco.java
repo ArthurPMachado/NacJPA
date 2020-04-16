@@ -34,7 +34,7 @@ public class Banco {
 	private int cnpj;
 	
 	@OneToMany(mappedBy="banco")
-	private List<Agencia> listaAgencias = new ArrayList<Agencia>();
+	private List<Agencia> agencias = new ArrayList<Agencia>();
 
 	public Banco() {
 		super();
