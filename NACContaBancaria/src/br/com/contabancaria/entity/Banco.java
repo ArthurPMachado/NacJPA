@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -35,18 +37,23 @@ public class Banco {
 	
 	@OneToMany(mappedBy="banco")
 	private List<Agencia> agencias = new ArrayList<Agencia>();
+	
+	@OneToOne
+	@JoinColumn(name="cd_ceo")
+	private Ceo ceo;
 
 	public Banco() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Banco(String razaoSocial, String nome, int telefone, int cnpj) {
+	public Banco(String razaoSocial, String nome, int telefone, int cnpj, Ceo ceo) {
 		super();
 		this.razaoSocial = razaoSocial;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.cnpj = cnpj;
+		this.ceo = ceo;
 	}
 
 	public int getCodigo() {
