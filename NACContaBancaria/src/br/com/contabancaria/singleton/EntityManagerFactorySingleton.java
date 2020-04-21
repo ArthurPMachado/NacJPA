@@ -9,9 +9,9 @@ public class EntityManagerFactorySingleton {
 	
 	private EntityManagerFactorySingleton() {};
 	
-	private static EntityManagerFactory getInstance() {
+	public static EntityManagerFactory getInstance() {
 		if(fabrica==null) {
-			fabrica = Persistence.createEntityManagerFactory("teste");
+			fabrica = Persistence.createEntityManagerFactory("oracle");
 		}
 		return fabrica;
 	}

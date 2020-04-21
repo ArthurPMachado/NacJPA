@@ -3,6 +3,7 @@ package br.com.contabancaria.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Cliente {
 	@Column(name = "NR_TELEFONE", nullable = true, precision = 9)
 	private int telefone;
 	
-	@ManyToMany(mappedBy="clientes")
+	@ManyToMany(mappedBy="clientes", cascade=CascadeType.PERSIST)
 	private List<ContaBancaria> contas = new ArrayList<ContaBancaria>();
 	
 	// Atributos que fazem parte de ralacinomanetos

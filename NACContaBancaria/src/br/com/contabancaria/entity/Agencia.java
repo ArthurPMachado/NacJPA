@@ -3,6 +3,7 @@ package br.com.contabancaria.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,16 +33,20 @@ public class Agencia {
 	@Column(name="nr_telefone", nullable=false)	
 	private int telefone;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="cd_banco")
 	private Banco banco;
 	
-	@OneToMany(mappedBy="agencia")
+	@OneToMany(mappedBy="agencia", cascade=CascadeType.ALL)
 	private List<ContaBancaria> contas = new ArrayList<ContaBancaria>();
+	
+	public void addContas(ContaBancaria conta) {
+		contas.add(conta);
+		conta.setAgencia(this);
+	}
 	
 	public Agencia() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Agencia(String nome, String endereco, int telefone) {

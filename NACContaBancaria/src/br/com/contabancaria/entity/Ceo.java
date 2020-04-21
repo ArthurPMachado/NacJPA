@@ -1,5 +1,6 @@
 package br.com.contabancaria.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,7 +34,7 @@ public class Ceo {
 	@Column(name = "VL_SALARIO", nullable = false, precision = 6, scale = 2)
 	private double salario;
 	
-	@OneToOne(mappedBy="ceo")
+	@OneToOne(mappedBy="ceo", cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	private Banco banco;
 	
 	public Ceo(String nome, Genero genero, int idade, double salario) {

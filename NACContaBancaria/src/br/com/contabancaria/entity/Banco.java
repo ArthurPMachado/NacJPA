@@ -3,8 +3,10 @@ package br.com.contabancaria.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,12 +37,17 @@ public class Banco {
 	@Column(name="nr_cnpj", nullable=false)
 	private int cnpj;
 	
-	@OneToMany(mappedBy="banco")
+	@OneToMany(mappedBy="banco", cascade=CascadeType.ALL)
 	private List<Agencia> agencias = new ArrayList<Agencia>();
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="cd_ceo")
 	private Ceo ceo;
+	
+	public void addAgencias(Agencia agencia) {
+		agencias.add(agencia);
+		agencia.setBanco(this);
+	}
 
 	public Banco() {
 		super();

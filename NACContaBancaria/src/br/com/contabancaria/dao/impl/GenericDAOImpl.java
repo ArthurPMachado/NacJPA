@@ -17,7 +17,7 @@ public class GenericDAOImpl<T, K> implements GenericDAO<T, K>{
 		this.manager = manager;
 		clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
-	
+
 	@Override
 	public void create(T entidade) {
 		manager.persist(entidade);

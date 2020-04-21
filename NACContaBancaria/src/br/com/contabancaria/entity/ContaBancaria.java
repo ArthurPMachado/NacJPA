@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,11 +40,11 @@ public class ContaBancaria {
 	@Column(name="dt_fechamento")
 	private Calendar fechamento;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="cd_agencia")
 	private Agencia agencia;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
 	@JoinTable(name="TB_CONTA_BANCARIA_CLIENTE",
 				joinColumns=@JoinColumn(name="cd_conta"),
 				inverseJoinColumns=@JoinColumn(name="cd_cliente"))
@@ -53,11 +55,12 @@ public class ContaBancaria {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ContaBancaria(double saldo, Calendar abertura, Agencia agencia) {
+	public ContaBancaria(double saldo, Calendar abertura, Agencia agencia, List<Cliente> clientes) {
 		super();
 		this.saldo = saldo;
 		this.abertura = abertura;
 		this.agencia = agencia;
+		this.clientes = clientes;
 	}
 
 	public int getCodigo() {
